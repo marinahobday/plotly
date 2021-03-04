@@ -19,22 +19,23 @@ function barChart(table_data){
 d3.json("samples.json").then((sampleData =>{  
     var data = sampleData.samples;
     var results = data.filter(obj=>obj.id==table_data);
-    var target = results[0];
+    var target = results(0);
     var otu_ids = target.otu_ids;
     var otu_labels = target.otu_labels;
     var sample_values = target.sample_values;
     var barchartLayout = {   
         title: "Top 10 OTUs",
+        margin: { t: 0 },
         hovermode: "closest",
         xaxis: { title: "Number" },
         yaxis: { title: "OTU"},
-        margin: { t: 30, l: 150}};
+        margin: { t: 30}};
     var barchartData = [
         {
-            x: sample_values.slice(0,10).reverse(),
-            y: otu_ids.slice(0,10).map(otu_ids => `otu${otu_ids}`).reverse(),
-            text: otu_labels.slice(0,10).reverse(),
-            type: "bar",
+            x: sample_values,
+            y: otu_labels,
+            text: otu_labels,
+            mode: "bar",
             orientation: "h"
         }
     ]
@@ -106,14 +107,11 @@ function popmydata() {
 ))};
 popmydata()
 //yolo
-function optionChanged(table_data) {
-    // Fetch new data each time a new sample is selected
-    // barChart(table_data);
-    // bubbleChart(table_data);
-    BellyButton(table_data);
-    bubbleChart(table_data);
-    barChart(table_data);
-
-  }
-  // Initialize the dashboard
-optionChanged();
+// function optionChanged(table_data) {
+//     // Fetch new data each time a new sample is selected
+//     // barChart(table_data);
+//     // bubbleChart(table_data);
+//     BellyButton(table_data);
+//   }
+//   // Initialize the dashboard
+// optionChanged("940");
